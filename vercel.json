@@ -36,11 +36,12 @@
             "dest": "/src/js/server.js"
         },
         {
-            "handle": "filesystem"
+            "src": "/",
+            "dest": "/src/html/index.html"
         },
         {
             "src": "/(.*)",
-            "dest": "/src/html/$1"
+            "dest": "/src/$1"
         }
     ]
 } 
