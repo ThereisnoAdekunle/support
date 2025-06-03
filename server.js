@@ -1,6 +1,7 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -8,7 +9,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('.')); // Serve static files from current directory
+app.use(express.static(path.join(__dirname))); // Serve static files from current directory
 
 // Create Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -60,11 +61,26 @@ app.post('/api/send-email', async (req, res) => {
     }
 });
 
-// Start server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log('\n=== Server Started ===');
-    console.log(`🌐 Website URL: http://localhost:${PORT}`);
-    console.log(`📧 Email sending ready`);
-    console.log('=====================\n');
-}); 
+// Serve index.html for the root route
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Handle all other routes
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, req.path));
+});
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log('\n=== Server Started ===');
+        console.log(`🌐 Website URL: http://localhost:${PORT}`);
+        console.log(`📧 Email sending ready`);
+        console.log('=====================\n');
+    });
+}
+
+// Export the Express API
+module.exports = app; 
