@@ -9,7 +9,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname))); // Serve static files from current directory
+app.use(express.static(path.join(__dirname, '../'))); // Serve static files from src/
 
 // Create Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -63,12 +63,12 @@ app.post('/api/send-email', async (req, res) => {
 
 // Serve index.html for the root route
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, '../html/index.html'));
 });
 
-// Handle all other routes
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, req.path));
+// Handle all other HTML routes
+app.get('/*.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '../html', req.path));
 });
 
 // For local development

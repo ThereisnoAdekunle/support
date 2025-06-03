@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
         {
-            "src": "server.js",
+            "src": "src/js/server.js",
             "use": "@vercel/node"
         },
         {
@@ -10,23 +10,19 @@
             "use": "@vercel/node"
         },
         {
-            "src": "*.html",
+            "src": "src/html/**/*.html",
             "use": "@vercel/static"
         },
         {
-            "src": "*.js",
+            "src": "src/js/**/*.js",
             "use": "@vercel/static"
         },
         {
-            "src": "*.css",
+            "src": "src/css/**/*.css",
             "use": "@vercel/static"
         },
         {
-            "src": "*.png",
-            "use": "@vercel/static"
-        },
-        {
-            "src": "*.jpg",
+            "src": "src/images/**/*",
             "use": "@vercel/static"
         }
     ],
@@ -37,14 +33,14 @@
         },
         {
             "src": "/server",
-            "dest": "/server.js"
+            "dest": "/src/js/server.js"
         },
         {
             "handle": "filesystem"
         },
         {
             "src": "/(.*)",
-            "dest": "/$1"
+            "dest": "/src/html/$1"
         }
     ]
 } 

